@@ -1,0 +1,33 @@
+<!-- templates/article_list.html -->
+{% extends 'base.html' %}
+{% load custom_tags %}
+
+
+{% block title %}All Users{% endblock title %}
+
+{% block content %}
+    {% for this_user in object_list %}
+        <div class="card mx-auto" style ="width:50%;">
+            <div class="card-header">
+                <div>
+                    <span class="font-weight-bold">{{this_user.username}}</span>
+                </div>
+                <div class = 'text-right'>
+                    <span class="text-muted"><a href="{% url 'profile' this_user.id %}">Profile</a></span>
+                    {% if not this_user|only_following:user and this_user != user %}
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <input type="hidden" name="user" value="{{ this_user.id }}"/>
+                            <button class="btn btn-success" type="submit" name = "follow">Follow</button>
+                        </form>
+                    {% endif %}
+                    {% if this_user|only_following:user %}
+                        <p>Following</p>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+        <br />
+    {% endfor %}
+{% endblock content %}

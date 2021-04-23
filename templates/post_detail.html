@@ -1,0 +1,45 @@
+<!-- templates/article_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="mx-auto border" style ="width:50%;" >
+        <div class="post-entry">
+            <h4> Post </h4>
+            <div>
+                <p>by <a href="{% url 'profile' object.author.id %}">{{ object.author }}</a> | {{ object.date }}</p>
+                <p>{{ object.body }}</p>
+                <p>
+                    {% if object.author == user %}
+                        <a href="{% url 'post_delete' post.pk %}">Delete</a>
+                    {% endif %}
+                </p>
+                <hr size=1>
+            </div>
+            {% for comment in post.comments.all %}
+            <p>
+                <span class="font-weight-bold">
+                    {{ comment.author }} &middot; 
+                </span>
+                {{ comment }}
+                <span class="float-right">
+                    {% if comment.author == user %}
+                        <a href="{% url 'comment_delete' comment.id %}">Delete</a>
+                    {% endif %}
+                </span>
+                <hr size=1>
+            </p>
+            {% endfor %}
+        </div>
+
+        <div class="card-footer">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                    <button class="btn btn-info" type="submit">Add comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

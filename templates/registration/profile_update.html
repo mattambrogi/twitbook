@@ -1,0 +1,14 @@
+
+{% extends 'base.html' %}
+{% load custom_tags %}
+
+
+{% block content %}
+    <div id="form" class="mx-auto" style ="width:50%;">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update">
+        </form>
+    </div>
+{% endblock content %}

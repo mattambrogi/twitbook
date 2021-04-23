@@ -1,0 +1,16 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <br/>
+    <div class="jumbotron">
+        <h1 class="display-4">Twitbook</h1>
+        <p class="lead">A social media website built with Django.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{% url 'feed_list' %}"
+                role="button">View Feed</a>
+        </p>
+    </div>
+{% endblock content %}
